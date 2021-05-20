@@ -61,18 +61,24 @@ int findAJobById(eJob listJ[], int sizeJ, int *position, int id)
 {
 	int returnValue;
 	int i;
+	int sizeA;
+	eAuxiliary auxiliary[sizeJ];
 
 	returnValue = FALSE;
 
-	for (i = 0; i < sizeJ; i++)
+	if (activeJobsPosition(listJ, sizeJ, auxiliary, &sizeA) == TRUE)
 	{
-		if (listJ[i].idJob == id)
+		for (i = 0; i < sizeA; i++)
 		{
-			*position = i;
-			returnValue = TRUE;
-			break;
+			if (listJ[auxiliary[i].id].idJob == id)
+			{
+				*position = i;
+				returnValue = TRUE;
+				break;
+			}
 		}
 	}
+
 	return returnValue;
 }
 

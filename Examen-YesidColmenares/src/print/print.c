@@ -80,7 +80,7 @@ void printServicesWithTheMostWorkPerformed(eService listS[], eAuxiliary auxiliar
 	{
 		if (auxiliary[i].isEmpty == OCCUPIED)
 		{
-			printf("\n%d    %s", auxiliary[i].accountant, listS[auxiliary[i].id].description);
+			printf("\n%d    %s", auxiliary[auxiliary[i].id].accountant, listS[auxiliary[i].id].description);
 		}
 	}
 }
