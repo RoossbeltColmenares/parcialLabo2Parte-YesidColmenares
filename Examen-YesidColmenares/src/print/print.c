@@ -6,6 +6,7 @@
  */
 
 #include "print.h"
+#define OCCUPIED 1
 
 void printJobs(eJob listJ[], int sizeJ, eService listS[], eDate date[], eBicycleBrand listBB[])
 {
@@ -63,4 +64,51 @@ void printReportsMenu(void)
 	printf("\n3. List of services with the data of the bicycles that were performed");
 	printf("\n4. The number of Red bicycles that performed a service chosen by the user");
 	printf("\n5. Exit");
+}
+
+void printBicyclesThatWereProvidedSomeService(int accountant)
+{
+	printf("The number of Red bicycles that performed a service chosen by the user is: %d", accountant);
+}
+
+void printServicesWithTheMostWorkPerformed(eService listS[], eAuxiliary auxiliary[], int sizeA)
+{
+	int i;
+
+	printf("CANT        SERVICE");
+	for (i = 0; i < sizeA; i++)
+	{
+		if (auxiliary[i].isEmpty == OCCUPIED)
+		{
+			printf("\n%d    %s", auxiliary[i].accountant, listS[auxiliary[i].id].description);
+		}
+	}
+}
+
+int printServicesWithDataOfTheBicyclesPerformed(eJob listJ[], int sizeJ, eService listS[], int sizeS, eBicycleBrand listBB[], eDate date[])
+{
+	int returnValue;
+	int i;
+	int j;
+	int sizeJobOccupied;
+	eAuxiliary auxiliary[sizeJ];
+
+	activeJobsPosition(listJ, sizeJ, auxiliary, &sizeJobOccupied);
+
+	for (j = 0; j < sizeS; j++)
+	{
+		printf("\n----------------------------------------------------------------");
+		printf("\n%s\n", listS[j].description);
+		printf("\n ID      BICYCLE BRAND    INCH WHEEL          COLOUR               DATE");
+		for (i = 0; i < sizeJobOccupied; i++)
+		{
+			if (listJ[auxiliary[i].id].idService + 20000 == listS[j].idService)
+			{
+				printf("\n%3d %18s %13d %15s %10d/%d/%d", listJ[auxiliary[i].id].idJob, listBB[listJ[auxiliary[i].id].idBicycleBrand].bicycleBrand, listBB[listJ[auxiliary[i].id].idBicycleBrand].wheelSize,
+						listBB[listJ[auxiliary[i].id].idBicycleBrand].colour, date[auxiliary[i].id].day, date[auxiliary[i].id].month, date[auxiliary[i].id].year);
+				returnValue = TRUE;
+			}
+		}
+	}
+	return returnValue;
 }

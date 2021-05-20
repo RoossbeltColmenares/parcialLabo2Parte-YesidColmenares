@@ -52,4 +52,10 @@ void printMainMenu(void);
 
 void printReportsMenu(void);
 
+void printBicyclesThatWereProvidedSomeService(int accountant);
+
+int printServicesWithDataOfTheBicyclesPerformed(eJob listJ[], int sizeJ, eService listS[], int sizeS, eBicycleBrand listBB[], eDate date[]);
+
+void printServicesWithTheMostWorkPerformed(eService listS[], eAuxiliary auxiliary[], int sizeA);
+
 #endif /* PRINT_PRINT_H_ */

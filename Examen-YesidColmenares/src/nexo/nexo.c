@@ -147,7 +147,9 @@ int reports(eJob listJ[], int sizeJ, eService listS[], int sizeS, eBicycleBrand 
 	int returnValue;
 	int conditionWhile;
 	int option;
+	int quantityRedBicycles;
 
+	quantityRedBicycles = 0;
 	returnValue = FALSE;
 	do
 	{
@@ -178,7 +180,8 @@ int reports(eJob listJ[], int sizeJ, eService listS[], int sizeS, eBicycleBrand 
 
 			case 4:
 				system("cls");
-				redBicyclesThatWereProvidedSomeService();
+				redBicyclesThatWereProvidedSomeService(listJ, sizeJ, listBB, &quantityRedBicycles);
+				printBicyclesThatWereProvidedSomeService(quantityRedBicycles);
 				returnValue = TRUE;
 				break;
 
@@ -192,50 +195,26 @@ int reports(eJob listJ[], int sizeJ, eService listS[], int sizeS, eBicycleBrand 
 	return returnValue;
 }
 
-int redBicyclesThatWereProvidedSomeService(eJob listJ[], int sizeJ, eBicycleBrand listBB[])
+int redBicyclesThatWereProvidedSomeService(eJob listJ[], int sizeJ, eBicycleBrand listBB[], int *quantityRedBicycles)
 {
 	int i;
-	int j;
 	int sizeA;
-	eAuxiliary auxiliary[sizeJ];
-
-	if (thereAreJobs(listJ, sizeJ) == TRUE)
-	{
-		activeJobsPosition(listJ, sizeJ, auxiliary, sizeA);
-
-		for (i = 0; i < sizeA - 1; i++)
-		{
-			for (j = i + 1; j < sizeA; j++)
-			{
-
-			}
-		}
-	}
-}
-
-int printServicesWithDataOfTheBicyclesPerformed(eJob listJ[], int sizeJ, eService listS[], int sizeS, eBicycleBrand listBB[], eDate date[])
-{
 	int returnValue;
-	int i;
-	int j;
-	int sizeJobOccupied;
+	int accountant;
+
+	accountant = 0;
+	returnValue = FALSE;
 	eAuxiliary auxiliary[sizeJ];
 
-	activeJobsPosition(listJ, sizeJ, auxiliary, &sizeJobOccupied);
+	activeJobsPosition(listJ, sizeJ, auxiliary, &sizeA);
 
-	for (j = 0; j < sizeS; j++)
+	for (i = 0; i < sizeA; i++)
 	{
-		printf("\n----------------------------------------------------------------");
-		printf("\n%s\n", listS[j].description);
-		printf("\n ID      BICYCLE BRAND    INCH WHEEL          COLOUR               DATE");
-		for (i = 0; i < sizeJobOccupied; i++)
+		if (strcmp(listBB[listJ[auxiliary[i].id].idBicycleBrand].colour, "RED") == 0)
 		{
-			if (listJ[auxiliary[i].id].idService + 20000 == listS[j].idService)
-			{
-				printf("\n%3d %18s %13d %15s %10d/%d/%d", listJ[auxiliary[i].id].idJob, listBB[listJ[auxiliary[i].id].idBicycleBrand].bicycleBrand, listBB[listJ[auxiliary[i].id].idBicycleBrand].wheelSize,
-						listBB[listJ[auxiliary[i].id].idBicycleBrand].colour, date[auxiliary[i].id].day, date[auxiliary[i].id].month, date[auxiliary[i].id].year);
-				returnValue = TRUE;
-			}
+			accountant++;
+			*quantityRedBicycles = accountant;
+			returnValue = TRUE;
 		}
 	}
 	return returnValue;
@@ -338,16 +317,3 @@ int repeatedService(eAuxiliary auxiliary[], int sizeA, int moreRepeated)
 	return returnValue;
 }
 
-void printServicesWithTheMostWorkPerformed(eService listS[], eAuxiliary auxiliary[], int sizeA)
-{
-	int i;
-
-	printf("CANT        SERVICE");
-	for (i = 0; i < sizeA; i++)
-	{
-		if (auxiliary[i].isEmpty == OCCUPIED)
-		{
-			printf("\n%d    %s", auxiliary[i].accountant, listS[auxiliary[i].id].description);
-		}
-	}
-}

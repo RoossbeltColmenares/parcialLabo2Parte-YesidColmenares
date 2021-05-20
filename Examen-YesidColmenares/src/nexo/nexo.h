@@ -103,9 +103,7 @@ int mostRepeatedService(eAuxiliary auxiliary[], int sizeA, int *moreRepeated);
 
 int repeatedService(eAuxiliary auxiliary[], int sizeA, int moreRepeated);
 
-void printServicesWithTheMostWorkPerformed(eService listS[], eAuxiliary auxiliary[], int sizeA);
-
-int printServicesWithDataOfTheBicyclesPerformed(eJob listJ[], int sizeJ, eService listS[], int sizeS, eBicycleBrand listBB[], eDate date[]);
+int redBicyclesThatWereProvidedSomeService(eJob listJ[], int sizeJ, eBicycleBrand listBB[], int *quantityRedBicycles);
 
 
 
